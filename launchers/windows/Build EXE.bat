@@ -8,8 +8,8 @@ if errorlevel 1 goto failed
 ".venv\Scripts\python.exe" scripts\build.py
 if errorlevel 1 goto failed
 echo.
-echo Ready: dist\PanoTess\PanoTess.exe
-echo Keep the entire dist\PanoTess folder together when copying to another PC.
+echo Ready: dist\PanoTess.exe
+echo This single EXE includes its runtime and can be copied to another Windows x64 PC.
 pause
 exit /b 0
 :failed

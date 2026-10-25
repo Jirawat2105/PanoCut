@@ -17,6 +17,8 @@ def main():
         app = QApplication(sys.argv)
         app.setApplicationName("PanoTess")
         app.setOrganizationName("PanoTess")
+        from panotess import __version__
+        app.setApplicationVersion(__version__)
         app.setQuitOnLastWindowClosed(False)
         icon = QPixmap(64, 64)
         icon.fill(Qt.GlobalColor.transparent)

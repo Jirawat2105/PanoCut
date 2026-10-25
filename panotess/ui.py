@@ -14,6 +14,7 @@ from PySide6.QtWidgets import (
     QScrollArea, QSizePolicy, QVBoxLayout, QWidget,
 )
 
+from . import __version__
 from .fonts import system_font
 from .imaging import Cancelled, ImageError, Options, OUTPUT_EXTENSIONS, RATIOS, SUPPORTED_EXTENSIONS, export_one, geometry, load_source
 
@@ -267,6 +268,12 @@ class MainWindow(QMainWindow):
         self.last_outputs = {}
         self.last_errors = []
         self.settings = settings if settings is not None else QSettings("PanoTess", "PanoTess")
+        if settings is None and not self.settings.allKeys():
+            # Preserve preferences when upgrading from the previous product name.
+            legacy = QSettings("PanoTess", "PanoTess")
+            for key in ("last_dir", "ratio", "count", "format"):
+                if legacy.contains(key):
+                    self.settings.setValue(key, legacy.value(key))
         self.setWindowTitle("PanoTess — Panorama Slice")
         self.resize(1180, 860)
         self.setMinimumSize(960, 700)
@@ -481,7 +488,7 @@ class MainWindow(QMainWindow):
         logs.setObjectName("quiet")
         logs.clicked.connect(lambda: self.open_folder(self.log_dir))
         footer.addWidget(logs)
-        footer.addWidget(label("v1.0", "muted"))
+        footer.addWidget(label(f"v{__version__}", "muted"))
         root.addLayout(footer)
 
     def current_path(self):
