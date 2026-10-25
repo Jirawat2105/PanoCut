@@ -268,12 +268,6 @@ class MainWindow(QMainWindow):
         self.last_outputs = {}
         self.last_errors = []
         self.settings = settings if settings is not None else QSettings("PanoTess", "PanoTess")
-        if settings is None and not self.settings.allKeys():
-            # Preserve preferences when upgrading from the previous product name.
-            legacy = QSettings("PanoTess", "PanoTess")
-            for key in ("last_dir", "ratio", "count", "format"):
-                if legacy.contains(key):
-                    self.settings.setValue(key, legacy.value(key))
         self.setWindowTitle("PanoTess — Panorama Slice")
         self.resize(1180, 860)
         self.setMinimumSize(960, 700)

@@ -1,6 +1,5 @@
 # PanoTess
 
-PanoTess 1.1.0 is the renamed version of PanoTess. It imports existing PanoTess preferences on first launch and writes new export manifests as `panotess.json`. The GitHub repository URL remains the same.
 Application code written entirely by AI. See the [disclaimer](#disclaimer).
 
 Split a panorama into 2, 3, or 4 consecutive images with a live crop preview. PanoTess is a Windows and macOS desktop app that processes your images locally.
@@ -11,9 +10,9 @@ Get compiled apps from [GitHub Releases](https://github.com/Jirawat2105/PanoTess
 
 | Platform | Download |
 | --- | --- |
-| Windows x64 | [PanoTess-1.1.0-Windows-x64.exe](https://github.com/Jirawat2105/PanoTess/releases/download/v1.1.0/PanoTess-1.1.0-Windows-x64.exe) |
-| Mac with Apple Silicon (previous 1.0.0 release) | [DMG](https://github.com/Jirawat2105/PanoTess/releases/download/v1.0.0/PanoTess-1.0.0-macOS-arm64.dmg) / [PKG](https://github.com/Jirawat2105/PanoTess/releases/download/v1.0.0/PanoTess-1.0.0-macOS-arm64.pkg) |
-| Mac with Intel (previous 1.0.0 release) | [DMG](https://github.com/Jirawat2105/PanoTess/releases/download/v1.0.0/PanoTess-1.0.0-macOS-x86_64.dmg) / [PKG](https://github.com/Jirawat2105/PanoTess/releases/download/v1.0.0/PanoTess-1.0.0-macOS-x86_64.pkg) |
+| Windows x64 | [PanoTess-1.1.1-Windows-x64.exe](https://github.com/Jirawat2105/PanoTess/releases/download/v1.1.1/PanoTess-1.1.1-Windows-x64.exe) |
+| Mac with Apple Silicon | [DMG](https://github.com/Jirawat2105/PanoTess/releases/download/v1.1.1/PanoTess-1.1.1-macOS-arm64.dmg) / [PKG](https://github.com/Jirawat2105/PanoTess/releases/download/v1.1.1/PanoTess-1.1.1-macOS-arm64.pkg) |
+| Mac with Intel | [DMG](https://github.com/Jirawat2105/PanoTess/releases/download/v1.1.1/PanoTess-1.1.1-macOS-x86_64.dmg) / [PKG](https://github.com/Jirawat2105/PanoTess/releases/download/v1.1.1/PanoTess-1.1.1-macOS-x86_64.pkg) |
 
 ## Repository layout
 
@@ -59,8 +58,8 @@ Local/CI test builds are ad-hoc signed and **not notarized**. They are for testi
 
 ## Getting started on Windows
 
-1. Download the standalone `PanoTess-1.1.0-Windows-x64.exe` from [GitHub Releases](https://github.com/Jirawat2105/PanoTess/releases), then place it in a folder of your choice.
-2. Double-click `PanoTess-1.1.0-Windows-x64.exe`.
+1. Download the standalone `PanoTess-1.1.1-Windows-x64.exe` from [GitHub Releases](https://github.com/Jirawat2105/PanoTess/releases), then place it in a folder of your choice.
+2. Double-click `PanoTess-1.1.1-Windows-x64.exe`.
 3. Click **Select images**, or drag image files into the window.
 4. Choose the number of slices, aspect ratio, and output format.
 5. Drag the crop area in the preview if you selected a fixed aspect ratio.
@@ -218,8 +217,8 @@ Build on a Mac using Python 3.12. Double-click `launchers/macos/Build macOS.comm
 Outputs (version comes from `panotess/__init__.py`):
 
 - `dist/PanoTess.app`
-- `dist/PanoTess-1.1.0-macOS-arm64.dmg`
-- `dist/PanoTess-1.1.0-macOS-arm64.pkg`
+- `dist/PanoTess-1.1.1-macOS-arm64.dmg`
+- `dist/PanoTess-1.1.1-macOS-arm64.pkg`
 
 An Intel Python produces `x86_64` filenames instead. Each build targets the architecture of the Python interpreter running it; this is not a universal binary. The script verifies the app's code signature and runs the packaged app's native self-test from outside the checkout before creating installers. The DMG is also checked with `hdiutil verify`. It never installs the PKG on the build machine.
 
