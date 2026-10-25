@@ -10,3 +10,4 @@ artifacts/
 installation.log
 
 standalone/
+!packaging/macos.spec

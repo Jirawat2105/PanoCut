@@ -1,4 +1,4 @@
-"""Windows desktop entry point. Run through Run.bat."""
+"""Desktop entry point for Windows and macOS."""
 
 import logging
 import sys

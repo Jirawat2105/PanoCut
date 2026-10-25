@@ -23,7 +23,8 @@ class GuiTests(unittest.TestCase):
 
     def setUp(self):
         self.temp = TemporaryDirectory()
-        self.root = Path(self.temp.name)
+        # macOS /var is a symlink to /private/var; the app canonicalizes inputs.
+        self.root = Path(self.temp.name).resolve()
         self.settings = QSettings(str(self.root / "settings.ini"), QSettings.Format.IniFormat)
         self.window = MainWindow(self.root, self.settings)
         self.window.show()

@@ -1,7 +1,7 @@
 # PanoTess
 Disclaimer. Entire of this app was coding by AI.
 
-Split a panorama into 2, 3, or 4 consecutive images with a live crop preview. PanoTess is a Windows desktop app that processes your images locally.
+Split a panorama into 2, 3, or 4 consecutive images with a live crop preview. PanoTess is a Windows and macOS desktop app that processes your images locally.
 
 ## Features
 
@@ -16,11 +16,22 @@ Split a panorama into 2, 3, or 4 consecutive images with a live crop preview. Pa
 ## Requirements
 
 - Windows x64. The app is designed for Windows 11.
+- macOS 14.4 or newer, with separate Apple Silicon (`arm64`) and Intel (`x86_64`) builds. Use the installer matching your Mac.
 - Enough free memory and disk space for your images and exported slices.
 
 The standalone `PanoTess.exe` includes its runtime. You do not need to install Python, Lua, or image-processing packages. Image processing runs on the CPU and does not require CUDA.
 
-## Getting started
+## Install on macOS
+
+1. Download the DMG matching your Mac from a release that provides macOS builds: `arm64` for Apple Silicon, or `x86_64` for Intel.
+2. Open the DMG and drag **PanoTess.app** onto **Applications**.
+3. Eject the disk image and open **PanoTess** from Applications.
+
+Alternatively, open the matching `.pkg` and follow the macOS Installer steps to install into `/Applications`. Both formats include Python, Qt, and Pillow; users do not need developer tools. To uninstall, quit PanoTess and remove `/Applications/PanoTess.app`.
+
+Local/CI test builds are ad-hoc signed and **not notarized**. They are for testing and can trigger Gatekeeper warnings when downloaded. Public releases should use the Developer ID signing and notarization procedure below. This repository's checked-in Windows EXE does not run on macOS.
+
+## Getting started on Windows
 
 1. Download the standalone `PanoTess.exe` from this repository or a published release, then place it in a folder of your choice.
 2. Double-click `PanoTess.exe`.
@@ -87,7 +98,8 @@ PanoTess applies EXIF orientation before cropping. It does not copy the original
 Click **Error details** after a failed export, or **Open logs** in the app. Logs are stored at:
 
 ```text
-%LOCALAPPDATA%\PanoTess\logs
+Windows: %LOCALAPPDATA%\PanoTess\logs
+macOS:   ~/Library/Logs/PanoTess
 ```
 
 | Error code | What to check |
@@ -104,7 +116,7 @@ Click **Error details** after a failed export, or **Open logs** in the app. Logs
 | `E_DISK_FULL` | Free up disk space before exporting again. |
 | `E_EXPORT` / `E_PREVIEW` | Check the error details and logs. |
 | `E_SETTINGS` | Check the selected export settings. |
-| `E_OPEN_FOLDER` | Open the output folder manually in File Explorer. |
+| `E_OPEN_FOLDER` | Open the output folder manually in Finder or File Explorer. |
 | `E_UNEXPECTED` / `E_UNHANDLED` / `E_STARTUP` | Check the logs for diagnostic details. |
 
 If the app is forcibly closed during export, an incomplete `.panotess-*` temporary folder may remain beside the source image. You can remove it after confirming that no export is running.
@@ -114,7 +126,7 @@ If the app is forcibly closed during export, an incomplete `.panotess-*` tempora
 - Python
 - PySide6 Essentials / Qt Widgets
 - Pillow
-- PyInstaller for Windows packaging
+- PyInstaller for Windows and macOS packaging
 
 ## Run from source
 
@@ -134,11 +146,59 @@ After setup, you can also run the app and tests from PowerShell:
 .\.venv\Scripts\python.exe main.py --self-test
 ```
 
-## Build from source
+### Run from source on macOS
+
+Install Python 3.12 from [python.org](https://www.python.org/downloads/macos/), then run these commands from the repository folder:
+
+```sh
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python main.py
+.venv/bin/python -m unittest discover -s tests -v
+.venv/bin/python main.py --self-test
+```
+
+The GUI tests use Qt's offscreen backend. `--self-test` uses the native Cocoa backend and renders a window, then checks PNG/TIFF/JPG exports and exits automatically.
+
+## Build from source on Windows
 
 Double-click `Build EXE.bat` after installing the dependencies. This installs PyInstaller and builds a **folder-based package** at `dist\PanoTess\PanoTess.exe`. Keep that entire folder together when distributing this build.
 
 The standalone `PanoTess.exe` provided separately is a single-file build. The included build script currently creates the folder-based package described above.
+
+## Build macOS installers
+
+Build on a Mac using Python 3.12. Double-click `Build macOS.command`, or run:
+
+```sh
+.venv/bin/python -m pip install -r requirements.txt 'pyinstaller>=6.11,<7'
+.venv/bin/python scripts/build_macos.py --format both
+```
+
+Outputs (version comes from `panotess/__init__.py`):
+
+- `dist/PanoTess.app`
+- `dist/PanoTess-1.0.0-macOS-arm64.dmg`
+- `dist/PanoTess-1.0.0-macOS-arm64.pkg`
+
+An Intel Python produces `x86_64` filenames instead. Each build targets the architecture of the Python interpreter running it; this is not a universal binary. The script verifies the app's code signature and runs the packaged app's native self-test from outside the checkout before creating installers. The DMG is also checked with `hdiutil verify`. It never installs the PKG on the build machine.
+
+The `macOS installers` GitHub Actions workflow builds and tests both architectures on pull requests, version tags, or manual runs, and saves DMG/PKG artifacts. These artifacts are local test builds, not notarized public releases. CI has to run successfully before Intel support is considered validated. The supported OS floor follows [Qt 6.12's macOS requirements](https://doc.qt.io/qt-6/supported-platforms.html); older macOS versions have not been validated.
+
+### Sign and notarize a public release
+
+You need an Apple Developer account, a **Developer ID Application** certificate, and (for PKG) a **Developer ID Installer** certificate in your keychain. Configure a `notarytool` keychain profile with your Apple credentials using [Apple's notarization instructions](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution). Do not put credentials in this repository.
+
+```sh
+.venv/bin/python scripts/build_macos.py --format both \
+  --codesign-identity 'Developer ID Application: Your Name (TEAMID)' \
+  --installer-identity 'Developer ID Installer: Your Name (TEAMID)' \
+  --notary-profile 'panotess-notary'
+```
+
+PyInstaller signs the bundled code with hardened runtime when a signing identity is supplied. The script submits the app to Apple's notary service, staples its ticket, assesses the app with Gatekeeper, then packages it and signs/notarizes/staples each installer. Any failed command stops the build. Only distribute artifacts from a successful notarized build. See [PyInstaller's macOS signing notes](https://pyinstaller.org/en/stable/feature-notes.html#macos-binary-code-signing) for details.
+
+For DMG only, use `--format dmg` and omit `--installer-identity`. Without signing/notarization arguments, the script builds for local testing. Apple signing credentials are not configured by the CI workflow.
 
 ## Author
 

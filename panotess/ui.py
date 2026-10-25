@@ -14,12 +14,13 @@ from PySide6.QtWidgets import (
     QScrollArea, QSizePolicy, QVBoxLayout, QWidget,
 )
 
+from .fonts import system_font
 from .imaging import Cancelled, ImageError, Options, OUTPUT_EXTENSIONS, RATIOS, SUPPORTED_EXTENSIONS, export_one, geometry, load_source
 
 LOG = logging.getLogger(__name__)
 
 STYLE = """
-QWidget { background: #101115; color: #ebebf1; font-family: 'Segoe UI'; font-size: 13px; }
+QWidget { background: #101115; color: #ebebf1; font-size: 13px; }
 QMainWindow { background: #101115; }
 QFrame#card { background: #191b21; border: 1px solid #2a2d36; border-radius: 20px; }
 QWidget#controls { background: #191b21; }
@@ -103,10 +104,10 @@ class Preview(QWidget):
             painter.drawLine(int(icon.left() + 24), int(icon.top() + 20), int(icon.right() - 10), int(icon.bottom() - 12))
             painter.drawEllipse(QRectF(icon.left() + 11, icon.top() + 9, 6, 6))
             painter.setPen(QColor("#e4dfef"))
-            painter.setFont(QFont("Segoe UI", 16, QFont.Weight.DemiBold))
+            painter.setFont(system_font(16, QFont.Weight.DemiBold))
             painter.drawText(QRectF(30, center.y() - 22, self.width() - 60, 60), Qt.AlignmentFlag.AlignCenter | Qt.TextFlag.TextWordWrap, self.message)
             painter.setPen(QColor("#8b91a4"))
-            painter.setFont(QFont("Segoe UI", 10))
+            painter.setFont(system_font(10))
             painter.drawText(QRectF(35, center.y() + 45, self.width() - 70, 60), Qt.AlignmentFlag.AlignHCenter | Qt.TextFlag.TextWordWrap, self.detail)
             return
         rect = self.image_rect()
@@ -136,7 +137,7 @@ class Preview(QWidget):
             painter.setBrush(QColor(19, 18, 28, 210))
             painter.drawRoundedRect(badge, 7, 7)
             painter.setPen(QColor("#f0eaff"))
-            painter.setFont(QFont("Segoe UI", 9, QFont.Weight.DemiBold))
+            painter.setFont(system_font(9, QFont.Weight.DemiBold))
             painter.drawText(badge, Qt.AlignmentFlag.AlignCenter, f"{index + 1:02}")
 
     def mousePressEvent(self, event):

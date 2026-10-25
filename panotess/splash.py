@@ -5,6 +5,9 @@ from PySide6.QtGui import QColor, QFont, QLinearGradient, QPainter, QPen, QPixma
 from PySide6.QtWidgets import QSplashScreen
 
 
+from .fonts import system_font
+
+
 class SplashScreen(QSplashScreen):
     def __init__(self):
         canvas = QPixmap(480, 300)
@@ -22,12 +25,12 @@ class SplashScreen(QSplashScreen):
         painter.drawLine(235, 49, 235, 72)
         painter.drawLine(245, 49, 245, 72)
         painter.setPen(QColor("#f2eff9"))
-        painter.setFont(QFont("Segoe UI", 25, QFont.Weight.Bold))
+        painter.setFont(system_font(25, QFont.Weight.Bold))
         painter.drawText(QRectF(30, 103, 420, 46), Qt.AlignmentFlag.AlignCenter, "PanoTess")
-        painter.setFont(QFont("Segoe UI", 10))
+        painter.setFont(system_font(10))
         painter.setPen(QColor("#a4a3b4"))
         painter.drawText(QRectF(30, 153, 420, 25), Qt.AlignmentFlag.AlignCenter, "One panorama. Perfectly connected.")
-        painter.setFont(QFont("Segoe UI", 8))
+        painter.setFont(system_font(8))
         painter.setPen(QColor("#777d90"))
         painter.drawText(QRectF(30, 266, 420, 18), Qt.AlignmentFlag.AlignCenter, "LOCAL PROCESSING  /  ORIGINAL PIXELS")
         painter.end()
@@ -53,7 +56,7 @@ class SplashScreen(QSplashScreen):
     def drawContents(self, painter):
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         painter.setPen(QColor("#c3bed5"))
-        painter.setFont(QFont("Segoe UI", 10))
+        painter.setFont(system_font(10))
         painter.drawText(QRectF(30, 205, 420, 25), Qt.AlignmentFlag.AlignCenter, self.message)
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(QColor("#30323e"))

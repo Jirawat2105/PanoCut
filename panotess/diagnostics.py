@@ -10,9 +10,15 @@ import sys
 _crash_stream = None
 
 
+def log_directory() -> Path:
+    if sys.platform == "darwin":
+        return Path.home() / "Library" / "Logs" / "PanoTess"
+    return Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "PanoTess" / "logs"
+
+
 def setup_logging() -> Path:
     global _crash_stream
-    root = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "PanoTess" / "logs"
+    root = log_directory()
     root.mkdir(parents=True, exist_ok=True)
     handler = RotatingFileHandler(root / "panotess.log", maxBytes=2_000_000, backupCount=5, encoding="utf-8")
     handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s"))
