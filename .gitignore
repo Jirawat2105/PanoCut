@@ -11,3 +11,6 @@ installation.log
 
 standalone/
 !packaging/macos.spec
+
+/PanoTess.exe
+/.MacOSX/

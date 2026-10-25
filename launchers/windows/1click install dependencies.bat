@@ -1,8 +1,8 @@
 @echo off
 setlocal
-cd /d "%~dp0"
+cd /d "%~dp0..\.."
 title PanoTess - Install dependencies
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\install.ps1"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0..\..\scripts\install.ps1"
 if errorlevel 1 goto failed
 echo.
 echo Installation finished. Double-click "Run.bat" to start.

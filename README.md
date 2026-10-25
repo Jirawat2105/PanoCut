@@ -1,7 +1,31 @@
 # PanoTess
-Disclaimer. Entire of this app was coding by AI.
+Application code written entirely by AI. See the [disclaimer](#disclaimer).
 
 Split a panorama into 2, 3, or 4 consecutive images with a live crop preview. PanoTess is a Windows and macOS desktop app that processes your images locally.
+
+## Downloads
+
+Get compiled apps from [GitHub Releases](https://github.com/Jirawat2105/PanoTess/releases). Source archives contain the project files, not the compiled app.
+
+| Platform | Download |
+| --- | --- |
+| Windows x64 | `PanoTess.exe` |
+| Mac with Apple Silicon | macOS `arm64` DMG or PKG |
+| Mac with Intel | macOS `x86_64` DMG or PKG |
+
+## Repository layout
+
+```text
+panotess/          Application modules
+main.py          Application entry point
+launchers/       Windows and macOS launch/build helpers
+scripts/         Dependency installation, packaging, and preview tools
+packaging/       Platform packaging configuration
+tests/           Automated tests
+.github/         GitHub Actions workflows
+```
+
+Compiled downloads are kept in Releases rather than the source tree.
 
 ## Features
 
@@ -29,11 +53,11 @@ The standalone `PanoTess.exe` includes its runtime. You do not need to install P
 
 Alternatively, open the matching `.pkg` and follow the macOS Installer steps to install into `/Applications`. Both formats include Python, Qt, and Pillow; users do not need developer tools. To uninstall, quit PanoTess and remove `/Applications/PanoTess.app`.
 
-Local/CI test builds are ad-hoc signed and **not notarized**. They are for testing and can trigger Gatekeeper warnings when downloaded. Public releases should use the Developer ID signing and notarization procedure below. This repository's checked-in Windows EXE does not run on macOS.
+Local/CI test builds are ad-hoc signed and **not notarized**. They are for testing and can trigger Gatekeeper warnings when downloaded. Public releases should use the Developer ID signing and notarization procedure below. The Windows EXE does not run on macOS.
 
 ## Getting started on Windows
 
-1. Download the standalone `PanoTess.exe` from this repository or a published release, then place it in a folder of your choice.
+1. Download the standalone `PanoTess.exe` from [GitHub Releases](https://github.com/Jirawat2105/PanoTess/releases), then place it in a folder of your choice.
 2. Double-click `PanoTess.exe`.
 3. Click **Select images**, or drag image files into the window.
 4. Choose the number of slices, aspect ratio, and output format.
@@ -147,8 +171,8 @@ Download the app from [this repository](https://github.com/Jirawat2105/PanoTess)
 The Python source code is available in [Jirawat2105/PanoTess](https://github.com/Jirawat2105/PanoTess).
 
 1. Clone or download the repository.
-2. Double-click `1click install dependencies.bat`. An internet connection is required for the initial setup.
-3. Double-click `Run.bat` to start the app.
+2. Double-click `launchers/windows/1click install dependencies.bat`. An internet connection is required for the initial setup.
+3. Double-click `launchers/windows/Run.bat` to start the app.
 
 The installer creates a private `.venv` environment. If a compatible Python installation is missing, it attempts to install Python through Windows Package Manager (`winget`). Setup details are recorded in `installation.log`.
 
@@ -176,13 +200,13 @@ The GUI tests use Qt's offscreen backend. `--self-test` uses the native Cocoa ba
 
 ## Build from source on Windows
 
-Double-click `Build EXE.bat` after installing the dependencies. This installs PyInstaller and builds a **folder-based package** at `dist\PanoTess\PanoTess.exe`. Keep that entire folder together when distributing this build.
+Double-click `launchers/windows/Build EXE.bat` after installing the dependencies. This installs PyInstaller and builds a **folder-based package** at `dist\PanoTess\PanoTess.exe`. Keep that entire folder together when distributing this build.
 
 The standalone `PanoTess.exe` provided separately is a single-file build. The included build script currently creates the folder-based package described above.
 
 ## Build macOS installers
 
-Build on a Mac using Python 3.12. Double-click `Build macOS.command`, or run:
+Build on a Mac using Python 3.12. Double-click `launchers/macos/Build macOS.command`, or run:
 
 ```sh
 .venv/bin/python -m pip install -r requirements.txt 'pyinstaller>=6.11,<7'

@@ -1,7 +1,7 @@
 @echo off
 setlocal
-cd /d "%~dp0"
-if not exist ".venv\Scripts\python.exe" call "1click install dependencies.bat"
+cd /d "%~dp0..\.."
+if not exist ".venv\Scripts\python.exe" call "%~dp01click install dependencies.bat"
 if not exist ".venv\Scripts\python.exe" exit /b 1
 ".venv\Scripts\python.exe" -m pip install "pyinstaller>=6.11,<7"
 if errorlevel 1 goto failed
