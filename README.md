@@ -9,9 +9,9 @@ Get compiled apps from [GitHub Releases](https://github.com/Jirawat2105/PanoTess
 
 | Platform | Download |
 | --- | --- |
-| Windows x64 | `PanoTess-1.0.0-Windows-x64.exe` |
-| Mac with Apple Silicon | macOS `arm64` DMG or PKG |
-| Mac with Intel | macOS `x86_64` DMG or PKG |
+| Windows x64 | [PanoTess-1.0.0-Windows-x64.exe](https://github.com/Jirawat2105/PanoTess/releases/download/v1.0.0/PanoTess-1.0.0-Windows-x64.exe) |
+| Mac with Apple Silicon | [DMG](https://github.com/Jirawat2105/PanoTess/releases/download/v1.0.0/PanoTess-1.0.0-macOS-arm64.dmg) / [PKG](https://github.com/Jirawat2105/PanoTess/releases/download/v1.0.0/PanoTess-1.0.0-macOS-arm64.pkg) |
+| Mac with Intel | [DMG](https://github.com/Jirawat2105/PanoTess/releases/download/v1.0.0/PanoTess-1.0.0-macOS-x86_64.dmg) / [PKG](https://github.com/Jirawat2105/PanoTess/releases/download/v1.0.0/PanoTess-1.0.0-macOS-x86_64.pkg) |
 
 ## Repository layout
 
