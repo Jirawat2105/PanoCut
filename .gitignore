@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+logs/
+build/
+dist/
+*.spec
+.pytest_cache/
+artifacts/
+installation.log
+
+standalone/
