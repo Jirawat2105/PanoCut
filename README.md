@@ -9,7 +9,7 @@ Get compiled apps from [GitHub Releases](https://github.com/Jirawat2105/PanoTess
 
 | Platform | Download |
 | --- | --- |
-| Windows x64 | `PanoTess.exe` |
+| Windows x64 | `PanoTess-1.0.0-Windows-x64.exe` |
 | Mac with Apple Silicon | macOS `arm64` DMG or PKG |
 | Mac with Intel | macOS `x86_64` DMG or PKG |
 
@@ -57,8 +57,8 @@ Local/CI test builds are ad-hoc signed and **not notarized**. They are for testi
 
 ## Getting started on Windows
 
-1. Download the standalone `PanoTess.exe` from [GitHub Releases](https://github.com/Jirawat2105/PanoTess/releases), then place it in a folder of your choice.
-2. Double-click `PanoTess.exe`.
+1. Download the standalone `PanoTess-1.0.0-Windows-x64.exe` from [GitHub Releases](https://github.com/Jirawat2105/PanoTess/releases), then place it in a folder of your choice.
+2. Double-click `PanoTess-1.0.0-Windows-x64.exe`.
 3. Click **Select images**, or drag image files into the window.
 4. Choose the number of slices, aspect ratio, and output format.
 5. Drag the crop area in the preview if you selected a fixed aspect ratio.
