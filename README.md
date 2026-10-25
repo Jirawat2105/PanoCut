@@ -121,6 +121,20 @@ macOS:   ~/Library/Logs/PanoTess
 
 If the app is forcibly closed during export, an incomplete `.panotess-*` temporary folder may remain beside the source image. You can remove it after confirming that no export is running.
 
+## Disclaimer
+
+PanoTess's application code was written entirely by AI under the direction of **Jirawat Pratuangtip**. The third-party libraries listed below are separate projects maintained by their respective authors.
+
+AI-generated code may contain bugs or unexpected behavior. This software is provided "as is", without warranty, under the terms of the [MIT License](LICENSE). Keep backups of important images and check exported results before relying on them.
+
+### Unsigned Windows executable
+
+The distributed `PanoTess.exe` is not digitally signed. Windows may display **Unknown Publisher**, and Windows or your browser may show additional warnings when downloading or opening the app. See [Microsoft's explanation of SmartScreen reputation](https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/smartscreen-reputation).
+
+**Unknown Publisher** means that the executable does not have a trusted digital signature identifying its publisher. That message alone is not a malware detection, and it does not establish that a file is safe. If your security software reports a specific threat, investigate that detection before running the file.
+
+Download the app from [this repository](https://github.com/Jirawat2105/PanoTess) or its releases. The source code is available for inspection and for building the app yourself.
+
 ## Built with
 
 - Python
@@ -202,7 +216,7 @@ For DMG only, use `--format dmg` and omit `--installer-identity`. Without signin
 
 ## Author
 
-Created by **Jirawat Pratuangtip**.
+Project creator: **Jirawat Pratuangtip**. Application code written entirely by AI under their direction.
 
 Repository: [Jirawat2105/PanoTess](https://github.com/Jirawat2105/PanoTess)
 
