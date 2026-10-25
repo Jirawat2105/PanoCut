@@ -218,6 +218,8 @@ For DMG only, use `--format dmg` and omit `--installer-identity`. Without signin
 
 Project creator: **Jirawat Pratuangtip**. Application code written entirely by AI under their direction.
 
+Special thanks to **Chanakan Moongthin**, a friend who helped compile the app for Mac users.
+
 Repository: [Jirawat2105/PanoTess](https://github.com/Jirawat2105/PanoTess)
 
 ## License
