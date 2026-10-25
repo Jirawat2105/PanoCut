@@ -1,4 +1,5 @@
 # PanoTess
+Disclaimer. Entire of this app was coding by AI.
 
 Split a panorama into 2, 3, or 4 consecutive images with a live crop preview. PanoTess is a Windows desktop app that processes your images locally.
 
